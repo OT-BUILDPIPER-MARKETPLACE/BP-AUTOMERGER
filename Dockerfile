@@ -1,6 +1,6 @@
 FROM alpine
 RUN apk add --no-cache --upgrade bash
-RUN apk add jq
+RUN apk add jq git
 COPY build.sh .
 
 ADD BP-BASE-SHELL-STEPS /opt/buildpiper/shell-functions/
