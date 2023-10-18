@@ -19,7 +19,10 @@ logInfoMessage "Merging branch ${SRC_BRANCH} to ${TGT_BRANCH}"
 
 CONFLICTING_FILES=`findConflictingFiles src tgt`
 
-if [-z "${CONFLICTING_FILES}"]; then
+if [ -z "${CONFLICTING_FILES}" ]; then
+    TASK_STATUS=0
+    logInfoMessage "${SRC_BRANCH} can be merged back into ${TGT_BRANCH}, please continue"
+else
     TASK_STATUS=1
     logErrorMessage "${SRC_BRANCH} can't be merged into ${TGT_BRANCH} becasue of conflicts"
     logInfoMessage "Files in conflicting mode are ${CONFLICTING_FILES}"
@@ -28,10 +31,5 @@ if [-z "${CONFLICTING_FILES}"]; then
     getLastAuthorOfFiles ${SRC_BRANCH} "${CONFLICTING_FILES}"
     logInfoMessage "Listing out the authors of conflicting files in target branch: ${TGT_BRANCH}"
     getLastAuthorOfFiles ${tgt_BRANCH} "${CONFLICTING_FILES}"
-
-else
-    TASK_STATUS=0
-    logInfoMessage "${SRC_BRANCH} can be merged back into ${TGT_BRANCH}, please continue"
-
 fi
 saveTaskStatus ${TASK_STATUS} ${ACTIVITY_SUB_TASK_CODE}
