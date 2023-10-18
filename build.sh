@@ -17,7 +17,7 @@ TASK_STATUS=0
 
 logInfoMessage "Merging branch ${SRC_BRANCH} to ${TGT_BRANCH}"
 
-CONFLICTING_FILES=`findConflictingFiles src tgt`
+CONFLICTING_FILES=`findConflictingFiles ${SRC_BRANCH} ${TGT_BRANCH}`
 
 if [ -z "${CONFLICTING_FILES}" ]; then
     TASK_STATUS=0
