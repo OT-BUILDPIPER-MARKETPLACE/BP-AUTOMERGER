@@ -14,4 +14,7 @@ ENV TGT_BRANCH main
 ENV ACTIVITY_SUB_TASK_CODE BP-AUTOMERGER
 ENV VALIDATION_FAILURE_ACTION WARNING
 
+RUN git config --global user.email "connect@opstree.com"
+RUN git config --global user.name "Buildpiper"
+
 ENTRYPOINT [ "./build.sh" ]
