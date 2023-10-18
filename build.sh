@@ -30,6 +30,6 @@ else
     logInfoMessage "Listing out the authors of conflicting files in source branch: ${SRC_BRANCH}"
     getLastAuthorOfFiles ${SRC_BRANCH} "${CONFLICTING_FILES}"
     logInfoMessage "Listing out the authors of conflicting files in target branch: ${TGT_BRANCH}"
-    getLastAuthorOfFiles ${tgt_BRANCH} "${CONFLICTING_FILES}"
+    getLastAuthorOfFiles ${TGT_BRANCH} "${CONFLICTING_FILES}"
 fi
 saveTaskStatus ${TASK_STATUS} ${ACTIVITY_SUB_TASK_CODE}
