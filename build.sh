@@ -4,6 +4,7 @@ source /opt/buildpiper/shell-functions/log-functions.sh
 source /opt/buildpiper/shell-functions/str-functions.sh
 source /opt/buildpiper/shell-functions/file-functions.sh
 source /opt/buildpiper/shell-functions/aws-functions.sh
+source /opt/buildpiper/shell-functions/git-functions.sh
 
 TASK_STATUS=0
 
@@ -16,11 +17,21 @@ TASK_STATUS=0
 
 logInfoMessage "Merging branch ${SRC_BRANCH} to ${TGT_BRANCH}"
 
-# if [condition]; then
-#     logErrorMessage "Done the required operation"
-# else
-#     TASK_STATUS=1
-#     logErrorMessage "Target server not provided please check"
+CONFLICTING_FILES=`findConflictingFiles src tgt`
 
-# fi
+if [-z "${CONFLICTING_FILES}"]; then
+    TASK_STATUS=1
+    logErrorMessage "${SRC_BRANCH} can't be merged into ${TGT_BRANCH} becasue of conflicts"
+    logInfoMessage "Files in conflicting mode are ${CONFLICTING_FILES}"
+
+    logInfoMessage "Listing out the authors of conflicting files in source branch: ${SRC_BRANCH}"
+    getLastAuthorOfFiles ${SRC_BRANCH} "${CONFLICTING_FILES}"
+    logInfoMessage "Listing out the authors of conflicting files in target branch: ${TGT_BRANCH}"
+    getLastAuthorOfFiles ${tgt_BRANCH} "${CONFLICTING_FILES}"
+
+else
+    TASK_STATUS=0
+    logInfoMessage "${SRC_BRANCH} can be merged back into ${TGT_BRANCH}, please continue"
+
+fi
 saveTaskStatus ${TASK_STATUS} ${ACTIVITY_SUB_TASK_CODE}
