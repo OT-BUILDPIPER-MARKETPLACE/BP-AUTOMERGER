@@ -34,11 +34,11 @@ if [ "$?" -eq 0  ]; then
         fi
     else
         TASK_STATUS=1
-        logErrorMessage "${TGT_BRANCH} doesn't exists, please check!!!"
+        logErrorMessage "Target Branch: ${TGT_BRANCH} doesn't exists, please check!!!"
     fi 
 else
     TASK_STATUS=1
-    logErrorMessage "${SRC_BRANCH} doesn't exists, please check!!!"
+    logErrorMessage "Source Branch: ${SRC_BRANCH} doesn't exists, please check!!!"
 fi 
 
 saveTaskStatus ${TASK_STATUS} ${ACTIVITY_SUB_TASK_CODE}
