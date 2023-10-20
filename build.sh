@@ -24,12 +24,7 @@ if [ -z "${CONFLICTING_FILES}" ]; then
     logInfoMessage "${SRC_BRANCH} can be merged back into ${TGT_BRANCH}, please continue"
 else
     TASK_STATUS=1
-    logErrorMessage "${SRC_BRANCH} can't be merged into ${TGT_BRANCH} becasue of conflicts"
-    logInfoMessage "Files in conflicting mode are ${CONFLICTING_FILES}"
-
-    logInfoMessage "Listing out the authors of conflicting files in source branch: ${SRC_BRANCH}"
-    getLastAuthorOfFiles ${SRC_BRANCH} "${CONFLICTING_FILES}"
-    logInfoMessage "Listing out the authors of conflicting files in target branch: ${TGT_BRANCH}"
-    getLastAuthorOfFiles ${TGT_BRANCH} "${CONFLICTING_FILES}"
+    logInfoMessage "Listing out the authors of conflicting files in source branch: ${SRC_BRANCH} vs target branch: ${TGT_BRANCH} "
+    listAuthorsOfFilesAcrossBranches ${SRC_BRANCH} ${TGT_BRANCH} "${CONFLICTING_FILES}"
 fi
 saveTaskStatus ${TASK_STATUS} ${ACTIVITY_SUB_TASK_CODE}

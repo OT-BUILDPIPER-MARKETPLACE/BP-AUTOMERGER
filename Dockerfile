@@ -1,6 +1,8 @@
 FROM alpine
 RUN apk add --no-cache --upgrade bash
-RUN apk add jq git
+RUN apk add jq git py-pip
+RUN pip install csvkit
+
 COPY build.sh .
 
 ADD BP-BASE-SHELL-STEPS /opt/buildpiper/shell-functions/
